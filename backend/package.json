@@ -1,0 +1,20 @@
+{
+  "name": "wheres-waldo-backend",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "seed": "node src/utils/seed2.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.0.1",
+    "@supabase/supabase-js": "^2.47.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "wheres-waldo-backend": "file:"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+    "prisma": "^6.1.0"
+  }
+}

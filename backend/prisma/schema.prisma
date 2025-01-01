@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+
+model Character {
+  id              Int       @id @default(autoincrement())
+  name            String
+  // Store coordinates as percentages of image dimensions
+  xPositionStart  Float     @map("x_position_start")  // Left boundary
+  xPositionEnd    Float     @map("x_position_end")    // Right boundary
+  yPositionStart  Float     @map("y_position_start")  // Top boundary
+  yPositionEnd    Float     @map("y_position_end")    // Bottom boundary
+  gameId          Int       @map("game_id")
+  game            Game      @relation(fields: [gameId], references: [id])
+  // Track when this character is found by players
+  characterFinds  CharacterFind[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([gameId])
+}
+
+model Game {
+  id              Int       @id @default(autoincrement())
+  name            String    // e.g., "Beach Scene", "Snow Mountain"
+  imageUrl        String    @map("image_url")
+  difficulty      String    // e.g., "easy", "medium", "hard"
+  characters      Character[]
+  gameSessions    GameSession[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model GameSession {
+  id              Int       @id @default(autoincrement())
+  playerName      String    @map("player_name")
+  gameId          Int       @map("game_id")
+  game            Game      @relation(fields: [gameId], references: [id])
+  startTime       DateTime  @default(now())
+  endTime         DateTime?
+  characterFinds  CharacterFind[]
+  completed       Boolean   @default(false)
+
+  @@index([gameId])
+}
+
+model CharacterFind {
+  id              Int          @id @default(autoincrement())
+  characterId     Int          @map("character_id")
+  character       Character    @relation(fields: [characterId], references: [id])
+  gameSessionId   Int          @map("game_session_id")
+  gameSession     GameSession  @relation(fields: [gameSessionId], references: [id])
+  foundAt         DateTime     @default(now())
+
+  @@index([characterId])
+  @@index([gameSessionId])
+}
