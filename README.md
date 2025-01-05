@@ -1,5 +1,6 @@
 # Where's Waldo (Photo Tagging App)
 
+This project is based on Odin Project requirements which could be found [here](https://www.theodinproject.com/lessons/nodejs-where-s-waldo-a-photo-tagging-app).
 A full-stack photo tagging application inspired by the classic "Where's Waldo?" game, built with Node.js and PostgreSQL. Players must find specific characters in a crowded illustration while competing for the fastest completion time.
 
 ## 🎮 Features
@@ -163,17 +164,6 @@ model CharacterFind {
 - Secure validation of character positions
 - Anonymous user tracking system
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
